@@ -15,13 +15,28 @@ fi
 
 export LC_ALL=C
 
+LOG="/root/antizapret-setup.log"
+exec > >(tee -a "$LOG") 2>&1
+echo "== AntiZapret autorun started at $(date -Is) =="
+echo "Logging to: $LOG"
+
 apt-get update -y
-# setup.sh иногда собирает компоненты из исходников
-apt-get install -y git ca-certificates wget lsb-release iproute2 \
-  make gcc build-essential linux-headers-$(uname -r)
+
+# setup.sh иногда собирает/патчит компоненты из исходников (OpenVPN и др.)
+apt-get install -y \
+  git ca-certificates wget curl lsb-release iproute2 \
+  make gcc build-essential linux-headers-$(uname -r) \
+  autoconf automake libtool pkg-config \
+  libssl-dev liblzo2-dev liblz4-dev libcap-ng-dev \
+  openvpn
 
 rm -rf "$WORKDIR"
 git clone --depth 1 "$REPO_URL" "$WORKDIR"
+
+if [[ ! -f "$SETUP_SH" ]]; then
+  echo "ERROR: setup.sh not found at $SETUP_SH" >&2
+  exit 1
+fi
 chmod +x "$SETUP_SH"
 
 # Predefined answers (as requested)
@@ -48,7 +63,7 @@ OPENVPN_HOST=""
 WIREGUARD_HOST=""
 ROUTE_ALL=n
 
-# IP pools (include) — corrected to Y
+# IP pools (include)
 DISCORD_INCLUDE=y
 CLOUDFLARE_INCLUDE=y
 TELEGRAM_INCLUDE=y
