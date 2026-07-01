@@ -28,7 +28,7 @@ bash <(wget -qO- --no-hsts --inet4-only https://raw.githubusercontent.com/sevast
 
 5) Установка WARPER
 
-curl -fsSL https://github.com/sevastianovv/Antizapret/main/AZ-WARP_install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/sevastianovv/Antizapret/main/AZ-WARP_install.sh | bash
 
 ───
 
