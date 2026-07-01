@@ -26,6 +26,9 @@ bash <(curl -fsSL https://raw.githubusercontent.com/sevastianovv/Antizapret/main
 
 bash <(wget -qO- --no-hsts --inet4-only https://raw.githubusercontent.com/sevastianovv/Antizapret/main/setup.sh)
 
+5) Установка WARPER
+
+curl -fsSL https://github.com/sevastianovv/Antizapret/blob/main/install_vpn.sh | bash
 ───
 
 Важно
